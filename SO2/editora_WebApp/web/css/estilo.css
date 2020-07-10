@@ -1,0 +1,12 @@
+.button {
+    width: 33%; 
+    margin: 0 auto; 
+    padding: 0; 
+    display: table-cell; 
+    vertical-align: middle;
+}
+
+.images{
+    width:200px;
+    height:200px;
+}

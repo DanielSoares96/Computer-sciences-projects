@@ -1,0 +1,192 @@
+Exercício 2
+
+CREATE TABLE marcaAut (
+Marca VARCHAR(30), 
+Modelo VARCHAR (30) ,
+NmaxP INTEGER CHECK (NmaxP>0),
+PRIMARY KEY (Modelo)
+);
+
+CREATE TABLE autocarro (
+Matricula CHAR (8),
+Modelo VARCHAR (30),
+AnoMatricula INTEGER CHECK (AnoMatricula>1950),
+PRIMARY KEY (Matricula),
+FOREIGN KEY (Modelo) REFERENCES marcaAut
+);
+
+CREATE TABLE motorista (
+NBi INTEGER NOT NULL,
+Nome VARCHAR(50),
+Morada VARCHAR(50),
+PRIMARY KEY (NBi)
+);
+
+
+
+CREATE TABLE percurso (
+CodigoP INTEGER NOT NULL,
+NomeP VARCHAR (30),
+NmaxP INTEGER CHECK (NmaxP>0), 
+PRIMARY KEY(CodigoP)
+);
+
+CREATE TABLE passoPercurso (
+CodigoP INTEGER NOT NULL,
+Minutos INTEGER CHECK (Minutos>=0) NOT NULL,
+Paragem VARCHAR (30),
+PRIMARY KEY (CodigoP,Minutos,Paragem)
+);
+
+CREATE TABLE fezPercurso (
+CodigoP INTEGER NOT NULL,
+NBi INTEGER NOT NULL,   
+Matricula CHAR (8),
+DataInicio TIMESTAMP WITHOUT TIME ZONE,
+DataFim TIMESTAMP WITHOUT TIME ZONE, 
+PRIMARY KEY (Matricula),
+FOREIGN KEY (NBi) REFERENCES motorista,
+FOREIGN KEY (CodigoP) REFERENCES percurso,
+FOREIGN KEY (Matricula) REFERENCES autocarro
+);
+
+
+CREATE TABLE bilhete (
+NBi INTEGER CHECK (NBi>0), 
+DataInicio TIMESTAMP WITHOUT TIME ZONE,
+DataPass TIMESTAMP WITHOUT TIME ZONE,
+Paragem VARCHAR(30),
+PRIMARY KEY (DataPass,Paragem),
+FOREIGN KEY (NBi) REFERENCES motorista
+--FOREIGN KEY (Paragem) REFERENCES passoPercurso
+--FOREIGN KEY (DataInicio) REFERENCES fezPercurso
+);
+
+Exercício 3
+
+insert into marcaAut values ('MAN','MAN60',60);
+insert into marcaAut values ('Mercedes','M20',20);
+insert into marcaAut values ('IVECO','I45',45);
+
+insert into autocarro values ('AB-12-34','MAN60',1951);
+insert into autocarro values ('CD-56-78','MAN60',1952);
+insert into autocarro values ('EF-90-12','M20',1953);
+insert into autocarro values ('GH-34-56','I45',1954);
+insert into autocarro values ('IJ-78-90','I45',1955);
+
+insert into motorista values (12345678,'Sr. Silva','Rua Direita');
+insert into motorista values (87654321,'Sr. Santos','Rua Esquerda');
+insert into motorista values (00000001,'Sr. Gomes','Rua Frente');
+
+insert into percurso values (21,'Louredo - Lg Luis de Camoes',45);
+insert into percurso values (31,'25 de Abril - Malagueira',20);
+
+insert into passoPercurso values (21,0,'Granito estrada da igrejinha');
+insert into passoPercurso values (21,6,'Louredo');
+insert into passoPercurso values (21,13,'Srª dos Aflitos');
+insert into passoPercurso values (21,10,'Srª dos Aflitos');
+insert into passoPercurso values (21,12,'Srª dos Aflitos');
+insert into passoPercurso values (21,20,'Granito');
+insert into passoPercurso values (21,0,'Granito');
+insert into passoPercurso values (21,27,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,7,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,11,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,12,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,34,'Lg Luis de Camoes');
+insert into passoPercurso values (21,15,'Lg Luis de Camoes');
+insert into passoPercurso values (21,18,'Lg Luis de Camoes');
+insert into passoPercurso values (21,14,'Lg Luis de Camoes');
+insert into passoPercurso values (21,19,'Lg Luis de Camoes');
+insert into passoPercurso values (21,40,'Granito');
+insert into passoPercurso values (21,21,'Granito');
+insert into passoPercurso values (21,34,'Granito');
+insert into passoPercurso values (21,25,'Granito');
+insert into passoPercurso values (21,45,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,26,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,39,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,30,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,20,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,40,'Eb 2.3 Conde Vilalva');
+insert into passoPercurso values (21,54,'Louredo');
+insert into passoPercurso values (21,35,'Louredo');
+insert into passoPercurso values (21,48,'Louredo');
+insert into passoPercurso values (21,39,'Louredo');
+insert into passoPercurso values (31,61,'Srª dos Aflitos');
+insert into passoPercurso values (31,42,'Srª dos Aflitos');
+insert into passoPercurso values (31,55,'Srª dos Aflitos');
+insert into passoPercurso values (31,51,'Srª dos Aflitos');
+insert into passoPercurso values (31,46,'Srª dos Aflitos');
+insert into passoPercurso values (31,66,'Granito');
+insert into passoPercurso values (31,47,'Granito');
+insert into passoPercurso values (31,60,'Granito');
+insert into passoPercurso values (31,51,'Granito');
+insert into passoPercurso values (31,0,'25 de Abril');
+insert into passoPercurso values (31,2,'St. António');
+insert into passoPercurso values (31,4,'Comenda');
+insert into passoPercurso values (31,7,'Av Leonor Fernandes');
+insert into passoPercurso values (31,6,'Av Leonor Fernandes');
+insert into passoPercurso values (31,14,'Pc. Giraldes');
+insert into passoPercurso values (31,9,'Pc. Giraldes');
+insert into passoPercurso values (31,20,'ES André de Gouveia');
+insert into passoPercurso values (31,22,'Malagueira');
+insert into passoPercurso values (31,22,'Cartuxa');
+insert into passoPercurso values (31,24,'Cartuxa');
+insert into passoPercurso values (31,28,'Vista Alegre');
+insert into passoPercurso values (31,24,'Vista Alegre');
+insert into passoPercurso values (31,26,'Cartuxa');
+insert into passoPercurso values (31,34,'Lg Luis de Camões');
+insert into passoPercurso values (31,32,'Lg Luis de Camões');
+insert into passoPercurso values (31,39,'Nogueiras');
+insert into passoPercurso values (31,37,'Nogueiras');
+insert into passoPercurso values (31,44,'25 de Abril');
+insert into passoPercurso values (31,42,'25 de Abril');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:20:00','25 de Abril');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:20:01','25 de Abril');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:20:02','25 de Abril');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:20:03','25 de Abril');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:22:00','St. António');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:22:01','St. António');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:22:02','St. António');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:22:03','St. António');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:22:04','St. António');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:24:00','Comenda');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:27:00','Av Leonor Fernandes');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:27:01','Av Leonor Fernandes');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:27:02','Av Leonor Fernandes');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:34:00','Pc. Giraldes');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:42:00','Malagueira');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:42:01','Malagueira');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:42:02','Malagueira');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:44:00','Cartuxa');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:44:01','Cartuxa');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:44:02','Cartuxa');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:44:03','Cartuxa');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:44:04','Cartuxa');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:46:00','Vista Alegre');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:46:01','Vista Alegre');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:46:02','Vista Alegre');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:57:00','Nogueiras');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:57:01','Nogueiras');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:57:02','Nogueiras');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:57:03','Nogueiras');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:57:04','Nogueiras');
+insert into bilhete values (12345678,'2009-11-12 11:20:00','2009-11-12 11:57:05','Nogueiras');
+
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:20:00','Granito estrada da Igrejinha');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:20:01','Granito estrada da Igrejinha');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:20:03','Granito estrada da Igrejinha');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:20:04','Granito estrada da Igrejinha');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:20:06','Granito estrada da Igrejinha');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:26:00','Louredo');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:26:03','Louredo');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:26:06','Louredo');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:33:00','Srª dos Aflitos');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:40:00','Granito');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:40:01','Granito');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:40:02','Granito');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:40:03','Granito');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:47:00','Eb 2.3 Conde Vilalva');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:47:01','Eb 2.3 Conde Vilalva');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:47:02','Eb 2.3 Conde Vilalva');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:47:03','Eb 2.3 Conde Vilalva');
+insert into bilhete values (00000001,'2009-11-12 06:20:00','2009-11-12 06:47:04','Eb 2.3 Conde Vilalva');

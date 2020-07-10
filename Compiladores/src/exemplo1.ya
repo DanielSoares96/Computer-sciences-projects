@@ -1,0 +1,14 @@
+a : int = 0;
+b : string = "ola";
+
+f (b: int) : void {
+  print(b);
+};
+
+main () : void {
+  a : bool = true;
+  if a then {
+    b = "helloworld";
+    f(b);
+  };
+};

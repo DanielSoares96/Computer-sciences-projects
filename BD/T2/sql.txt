@@ -1,0 +1,985 @@
+CREATE TABLE cliente (
+Nome varchar(400) UNIQUE,
+Login varchar(400) UNIQUE,
+Morada varchar(400),
+Pass_word varchar(400),
+DataAdesao date,
+CartaoCredito integer ,
+Validade varchar(30),
+Primary key (Login)
+);
+
+
+CREATE TABLE pagamento (
+LoginPagamento varchar(400),
+MesPagamento varchar(400),
+DataPagamento date,
+Mensalidade float(3),
+Foreign Key (LoginPagamento) references cliente(Login)
+);
+
+
+CREATE TABLE filme (
+DataEstreia date,
+Lingua varchar(400),
+URL varchar(1000) UNIQUE,
+Path varchar(1000),
+Resumo varchar(5000),
+Primary key (URL)
+);
+
+
+CREATE TABLE filmeLocal(
+LocalFilmagem varchar(1000),
+URLLocal VARCHAR(400),
+Primary key (LocalFilmagem,URLLocal),
+Foreign key (URLLocal) references filme(URL)
+);
+
+
+CREATE TABLE filmetitulo(
+URLTitulo VARCHAR(100),
+TituloTitulo varchar(400) UNIQUE,
+Linguagem varchar(400),
+Primary key (URLTitulo,TituloTitulo),
+Foreign key (URLTitulo) references filme(URL)
+);
+
+
+CREATE TABLE filmeGenero(
+URLGenero varchar(400),
+Genero varchar(400),
+Primary key (URLGenero,Genero),
+Foreign key (URLGenero) references filme(URL)
+);
+
+
+CREATE TABLE filmePremio(
+URLPremio varchar(400),
+PremiosF varchar(1000),
+Primary key (URLPremio,PremiosF),
+Foreign key (URLPremio) references filme(URL)
+);
+
+
+CREATE TABLE pessoal (
+NomePessoal varchar(400) UNIQUE,
+Nacionalidade varchar(400),
+DataNascimento date,
+PRIMARY KEY (NomePessoal,DataNascimento)
+);
+
+
+CREATE TABLE historialF(
+LoginHistorial VARCHAR(400),
+URLHistorial VARCHAR(400),
+DataVisual date,
+Primary key (LoginHistorial,URLHistorial),
+Foreign Key (LoginHistorial) references cliente(Login),
+Foreign key (URLHistorial) references filme(Url)
+);
+
+
+CREATE TABLE actor(
+NomeAtor VARCHAR(400),
+URLAtor VARCHAR(400),
+Primary key (NomeAtor,URLAtor),
+Foreign key (URLAtor) references filme(URL)
+);
+
+
+CREATE TABLE director(
+NomeDiretor VARCHAR(400),
+URLDiretor VARCHAR(100),
+Primary key (NomeDiretor,URLDiretor),
+Foreign Key (NomeDiretor) references pessoal(NomePessoal),
+Foreign key (URLDiretor) references filme(Url)
+);
+
+
+CREATE TABLE directorPremio(
+NomeDiretor VARCHAR(400),
+PremioDiretor VARCHAR(400),
+TituloDiretor VARCHAR(400),
+URLDiretor VARCHAR(100),
+Primary key (NomeDiretor,URLDiretor,PremioDiretor),
+Foreign Key (NomeDiretor) references pessoal(NomePessoal)
+);
+
+
+CREATE TABLE actorPremio(
+NomeAtor VARCHAR(400),
+TituloAtor VARCHAR(400),
+URLAtor VARCHAR(100),
+PremioAtor VARCHAR(400),
+Primary key (NomeAtor,URLAtor,PremioAtor),
+Foreign Key (NomeAtor) references pessoal(NomePessoal)
+);
+
+------Ex Machina-----
+INSERT INTO filme VALUES ('2015-04-23','English','http://www.imdb.com/title/tt0470752','\filmes\Ex_Machina','A young programmer is selected to participate in a groundbreaking experiment in artificial intelligence by evaluating the human qualities of a breathtaking female A.I.');
+
+------American Pie--------
+
+INSERT INTO filme VALUES ('1999-12-10','English','http://www.imdb.com/title/tt0163651','\filmes\American_Pie','Four teenage boys enter a pact to lose their virginity by prom night.');
+
+
+------Matrix----------
+INSERT INTO filme VALUES ('1999-06-25','English','http://www.imdb.com/title/tt0133093','\filmes\Matrix','A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.');
+
+
+
+----------Ronaldo--------
+
+INSERT INTO filme VALUES ('2015-11-09','Portuguese','http://www.imdb.com/title/tt5065822','\filmes\Ronaldo','A close look at the life of Cristiano Ronaldo.');
+
+
+---------Toy story-------
+
+INSERT INTO filme VALUES ('1996-03-29','English','http://www.imdb.com/title/tt0114709','\filmes\Toy_Story','A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boys room');
+
+---------Scary Movie-------
+
+INSERT INTO filme VALUES ('2000-10-13','English','http://www.imdb.com/title/tt0175142','\filmes\Scary_Movie','A year after disposing the body of a man they accidently killed, a group of dumb teenagers are stalked by a bumbling serial killer.');
+
+
+--------Star Wars-------
+
+INSERT INTO filme VALUES ('1977-12-06','English','http://www.imdb.com/title/tt0076759','\filmes\Star_Wars','Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a wookiee and two droids to save the galaxy from the Empires world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader.');
+
+
+--------SAW-------
+
+INSERT INTO filme VALUES ('2005-03-03','English','http://www.imdb.com/title/tt0387564','\filmes\Saw','Would you kill to live? When a madman tries to teach how much life is worth, two men find themselves in a room with no idea how they got there or why they are there.');
+
+
+
+------Pulp Fiction------
+
+
+INSERT INTO filme VALUES ('1994-11-25','English','http://www.imdb.com/title/tt0110912','\filme\Pulp_fiction','The lives of two mob hit men, a boxer, a gangsters wife, and a pair of diner bandits intertwine in four tales of violence and redemption.');
+
+-------Pocahontas------
+
+
+INSERT INTO filme VALUES ('1995-11-24','English','http://www.imdb.com/title/tt0114148','\filmes\pocahontas','An English soldier and the daughter of an Algonquin chief share a romance when English colonists invade seventeenth-century Virginia.');
+
+
+
+------Filme local de filmagem------
+
+------Ex Machina-----
+
+INSERT INTO filmeLocal VALUES ('Pinewood Studios, Iver Heath, Buckinghamshire, England, UK','http://www.imdb.com/title/tt0470752');
+
+INSERT INTO filmeLocal VALUES ('Juvet Landscape Hotel, Alstad, Valldal, Norway','http://www.imdb.com/title/tt0470752');
+
+INSERT INTO filmeLocal VALUES ('Bloomberg Offices, Finsbury Square, Broadgate, London, England, UK','http://www.imdb.com/title/tt0470752');
+
+------American Pie--------
+
+INSERT INTO filmeLocal VALUES ('City of Industry, California, USA','http://www.imdb.com/title/tt0163651');
+
+INSERT INTO filmeLocal VALUES ('Millikan High School - 2800 Snowden Avenue, Long Beach, California, USA','http://www.imdb.com/title/tt0163651');
+
+INSERT INTO filmeLocal VALUES ('4153 Cedar Avenue, Long Beach, California, USA','http://www.imdb.com/title/tt0163651');
+
+------Matrix----------
+
+INSERT INTO filmeLocal VALUES ('AON Tower, Kent Street, Sydney, New South Wales, Australia','http://www.imdb.com/title/tt0133093');
+
+INSERT INTO filmeLocal VALUES ('Nashville, Tennessee, USA','http://www.imdb.com/title/tt0133093');
+
+INSERT INTO filmeLocal VALUES ('Sydney, New South Wales, Australia','http://www.imdb.com/title/tt0133093');
+
+----------Ronaldo---------
+
+INSERT INTO filmeLocal VALUES ('Funchal, Madeira, Portugal','http://www.imdb.com/title/tt5065822');
+
+INSERT INTO filmeLocal VALUES ('Santiago Bernabeu, Madrid, Spain','http://www.imdb.com/title/tt5065822');
+
+INSERT INTO filmeLocal VALUES ('Lisbon, Portugal','http://www.imdb.com/title/tt5065822');
+
+-------Toy story---------------
+
+INSERT INTO filmeLocal VALUES ('Pixar Animation Studios - 1200 Park Avenue, Emeryville, California, USA','http://www.imdb.com/title/tt0114709');
+
+INSERT INTO filmeLocal VALUES ('Walt Disney Feature Animation - 500 S. Buena Vista Street, Burbank, California, USA','http://www.imdb.com/title/tt0114709');
+
+-------Scary Movie--------
+
+INSERT INTO filmeLocal VALUES ('Pasadena City College - 1570 E Colorado Blvd, Pasadena, California, USA','http://www.imdb.com/title/tt0175142');
+
+INSERT INTO filmeLocal VALUES ('Vancouver Technical Secondary School, Vancouver, British Columbia, Canada','http://www.imdb.com/title/tt0175142');
+
+INSERT INTO filmeLocal VALUES ('Vancouver, British Columbia, Canada','http://www.imdb.com/title/tt0175142');
+
+-------Star Wars---------
+
+INSERT INTO filmeLocal VALUES ('Chott el Djerid, Nefta, Tunisia','http://www.imdb.com/title/tt0076759');
+
+INSERT INTO filmeLocal VALUES ('Tikal National Park, Guatemala','http://www.imdb.com/title/tt0076759');
+
+INSERT INTO filmeLocal VALUES ('Sidi Driss Hotel, Matmata, Tunisia','http://www.imdb.com/title/tt0076759');
+
+-------SAW--------------
+
+INSERT INTO filmeLocal VALUES ('Lacy Street Production Center - 2630 Lacy Street, Los Angeles, California, USA','http://www.imdb.com/title/tt0387564');
+
+--------Pulp Fiction------------
+
+INSERT INTO filmeLocal VALUES ('1435 Flower Street, Glendale, California, USA','http://www.imdb.com/title/tt0110912');
+
+INSERT INTO filmeLocal VALUES ('Hawthorne Grill - 13763 S. Hawthorne Boulevard, Hawthorne, California, USA','http://www.imdb.com/title/tt0110912');
+
+INSERT INTO filmeLocal VALUES ('River Glen Motel - 2934 Riverside Drive, Los Angeles, California, USA','http://www.imdb.com/title/tt0110912');
+
+--------Pocahontas-------
+
+INSERT INTO filmeLocal VALUES (' Walt Disney Feature Animation - 500 S. Buena Vista Street, Burbank, California, USA','http://www.imdb.com/title/tt0114148');
+
+
+
+-------filme/titulo------
+
+------Ex Machina-----
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0470752','EX Machina','English(Original Title)');
+
+------American Pie--------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0163651','American Pie','English(Original Title)');
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0163651','American Pie: A Primeira Vez','Portuguese');
+
+------Matrix----------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0133093','The Matrix','English(Original Title)');
+
+----------Ronaldo--------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt5065822','Ronaldo','Portuguese(Original Title)');
+
+-------Toy story---------------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0114709','Toy Story','English(Original Title)');
+
+INSERT INTO filmetitulo VALUES  ('http://www.imdb.com/title/tt0114709','Toy Story: Os Rivais','Portuguese');
+
+-------Scary Movie--------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0175142','Scary Movie','English(Original Title)');
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0175142','Scary Movie - Um Susto de Filme','Portuguese');
+
+-------Star Wars---------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0076759','Star Wars','English(Original Title)');
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0076759','Star Wars: Episódio IV - Uma Nova Esperança','Portuguese');
+
+-------SAW--------------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0387564','Saw','English(Original Title)');
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0387564','Saw - Enigma Mortal','Portuguese');
+
+--------Pulp Fiction------------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0110912','Pulp Fiction ','English(Original Title)');
+
+--------Pocahontas-------
+
+INSERT INTO filmetitulo VALUES ('http://www.imdb.com/title/tt0114148','Pocahontas','English(Original Title)');
+
+-------Filme/genero--------
+
+------Ex Machina-----
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0470752','Drama');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0470752','Mystery');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0470752','Sci-Fi');
+
+------American Pie--------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0163651','Comedy');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0163651','Romance');
+
+------Matrix----------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0133093','Action');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0133093','Sci-Fi');
+
+----------Ronaldo--------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt5065822','Documentary');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt5065822','Sport');
+
+-------Toy story---------------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0114709','Animation');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0114709','Adventure');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0114709','Comedy');
+
+-------Scary Movie--------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0175142','Comedy');
+
+-------Star Wars---------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0076759','Action');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0076759','Adventure');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0076759','Fantasy');
+
+-------SAW--------------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0387564','Horror');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0387564','Mystery');
+
+--------Pulp Fiction------------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0110912','Crime');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0110912','Drama');
+
+--------Pocahontas-------
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0114148','Animation');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0114148','Adventure');
+
+INSERT INTO filmeGenero VALUES ('http://www.imdb.com/title/tt0114148','Drama');
+
+
+-------Filme/Premio-------
+
+------Ex Machina-----
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0470752','Amsterdam Fantastic Film Festival-Silver Scream Award');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0470752','Boston Society of Film Critics Awards-Best New Filmmaker');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0470752','British Independent Film Awards-Best British Independent Film');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0470752','Chicago Film Critics Association Awards-Best Supporting Actress');
+
+------American Pie--------
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0163651','Blockbuster Entertainment Awards-Favorite Supporting Actor - Comedy');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0163651','Bogey Awards, Germany-Bogey Award in Platin');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0163651','Young Hollywood Awards-Best Ensemble Cast');
+
+------Matrix----------
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0133093','Academy Awards, USA-Best Film Editing');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0133093','Academy Awards, USA-Best Sound');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0133093','Academy Awards, USA-Best Effects, Sound Effects Editing');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0133093','BAFTA Awards-Best Achievement in Special Visual Effects');
+
+-------Toy story---------------
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0114709','Academy Awards, USA-Special Achievement Award');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0114709','Annie Awards-Best Individual Achievement: Music');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0114709','Annie Awards-Best Individual Achievement: Directing');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0114709','Awards Circuit Community Awards-Best Motion Picture');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0114709','ASCAP Film and Television Music Awards-Top Box Office Films');
+
+-------Scary Movie--------
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0175142','Blockbuster Entertainment Awards-Favorite Supporting Actress - Comedy');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0175142','BMI Film & TV Awards-BMI Film Music Award');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0175142','MTV Movie Awards-Best Cameo in a Movie');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0175142','Teen Choice Awards-Film - Movie of the Summer');
+
+-------Star Wars---------
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0076759','Academy Awards, USA-Best Art Direction-Set Decoration');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0076759','Academy Awards, USA-Best Art Direction-Best Costume Design');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0076759','Academy Awards, USA-Best Art Direction-Best Sound');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0076759','Academy Awards, USA-Best Art Direction-Best Film Editing');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0076759','Academy Awards, USA-Best Art Direction-Best Effects, Visual Effects');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0076759','Academy Awards, USA-Best Art Direction-Best Music, Original Score');
+
+-------SAW--------------
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0387564','Brussels International Festival of Fantasy Film-Pegasus Audience Award');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0387564','Fantasporto-International Fantasy Film Award');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0387564','San Sebastián Horror and Fantasy Film Festival-Audience Award');
+
+--------Pulp Fiction------------
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0110912','Academy Awards, USA-Best Writing, Screenplay Written Directly for the Screen');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0110912','Golden Globes, USA-Best Screenplay - Motion Picture');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0110912','BAFTA Awards-Best Actor in a Supporting Role');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0110912','BAFTA Awards-Best Screenplay - Original');
+
+--------Pocahontas-------
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0114148','Academy Awards, USA-Best Music, Original Song');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0114148','Academy Awards, USA-Best Music, Original Musical or Comedy Score');
+
+INSERT INTO filmePremio VALUES ('http://www.imdb.com/title/tt0114148','Golden Globes, USA-Best Original Song - Motion Picture');
+
+
+---------Deve inserir 2 clientes, 1 fez 4 pagamentos e o outro 5, 1 viu 6 filmes e o outro 4, e um dos filmes é o mesmo---------
+
+------Cliente-----
+INSERT INTO cliente VALUES ('José Luís','jose','Rua de Cima n5 Lisboa','1234','2000-01-01',1,'Sim');
+
+INSERT INTO cliente VALUES ('Luís Joé','luis','Rua de Baixo n5 Lisboa','4321','2000-02-01',1,'Sim');
+
+---------Pagamentos--------
+
+INSERT INTO pagamento VALUES ('jose','Janeiro','2015-01-01',3.00);
+INSERT INTO pagamento VALUES ('jose','Fevereiro','2015-02-01',3.00);
+INSERT INTO pagamento VALUES ('jose','Março','2015-03-01',3.00);
+INSERT INTO pagamento VALUES ('jose','Abril','2015-04-01',3.00);
+
+
+INSERT INTO pagamento VALUES ('luis','Janeiro','2015-01-01',3.00);
+INSERT INTO pagamento VALUES ('luis','Fevereiro','2015-02-01',3.00);
+INSERT INTO pagamento VALUES ('luis','Março','2015-02-01',3.00);
+INSERT INTO pagamento VALUES ('luis','Abril','2015-04-01',3.00);
+INSERT INTO pagamento VALUES ('luis','Maio','2015-05-01',3.00);
+
+--------historial filmes---------
+
+INSERT INTO historialF VALUES ('jose','http://www.imdb.com/title/tt0470752');
+INSERT INTO historialF VALUES ('jose','http://www.imdb.com/title/tt0163651');
+INSERT INTO historialF VALUES ('jose','http://www.imdb.com/title/tt0133093');
+INSERT INTO historialF VALUES ('jose','http://www.imdb.com/title/tt5065822');
+INSERT INTO historialF VALUES ('jose','http://www.imdb.com/title/tt0114709');
+INSERT INTO historialF VALUES ('jose','http://www.imdb.com/title/tt0175142');
+
+INSERT INTO historialF VALUES ('luis','http://www.imdb.com/title/tt0076759');
+INSERT INTO historialF VALUES ('luis','http://www.imdb.com/title/tt0387564');
+INSERT INTO historialF VALUES ('luis','http://www.imdb.com/title/tt0110912');
+INSERT INTO historialF VALUES ('luis','http://www.imdb.com/title/tt0470752');
+
+---------Deve inserir a informação dos directores dos filmes e para pelo menos 4 actores de cada filme-------
+
+--------Pessoal--------
+
+------Ex Machina-----
+
+INSERT INTO pessoal VALUES ('Alex Garland','England','1970-02-26');--Director--
+
+INSERT INTO pessoal VALUES ('Domhnall Gleeson','Ireland','1983-05-12');
+INSERT INTO pessoal VALUES ('Corey Johnson','USA','1961-05-17');
+INSERT INTO pessoal VALUES ('Oscar Isaac','Guatemala','1979-03-09');
+INSERT INTO pessoal VALUES ('Alicia Vikander','Sweden','1988-10-03');
+
+------American Pie--------
+
+INSERT INTO pessoal VALUES ('Paul Weitz','USA','1965-11-19');--Director--
+
+INSERT INTO pessoal VALUES ('Jason Biggs','USA','1978-05-12');
+INSERT INTO pessoal VALUES ('Chris Klein','USA','1979-03-14');
+INSERT INTO pessoal VALUES ('Thomas Ian Nicholas','USA','1980-07-10');
+INSERT INTO pessoal VALUES ('Alyson Hannigan','USA','1974-04-24');
+
+------Matrix----------
+
+INSERT INTO pessoal VALUES ('Andy Wachowski','USA','1967-12-29');--Director--
+
+INSERT INTO pessoal VALUES ('Keanu Reeves','Lebanon','1964-09-02');
+INSERT INTO pessoal VALUES ('Laurence Fishburne','USA','1961-07-30');
+INSERT INTO pessoal VALUES ('Carrie-Anne Moss','Canada','1967-08-21');
+INSERT INTO pessoal VALUES ('Hugo Weaving','Nigeria','1960-04-04');
+
+----------Ronaldo--------
+
+INSERT INTO pessoal VALUES ('Anthony Wonke','England','1966-05-18');--Director--
+
+INSERT INTO pessoal VALUES ('Cristiano Ronaldo','Portugal','1985-02-05');
+INSERT INTO pessoal VALUES ('Dolores Aveiro','Portugal','1954-12-31');
+INSERT INTO pessoal VALUES ('Georgie Bingham','England','1976-08-21');
+INSERT INTO pessoal VALUES ('Lionel Messi','Argentina','1987-06-24');
+
+-------Toy story---------------
+
+INSERT INTO pessoal VALUES ('John Lasseter','USA','1957-01-12');--Director--
+
+INSERT INTO pessoal VALUES ('Tom Hanks','USA','1956-07-09');
+INSERT INTO pessoal VALUES ('Tim Allen','USA','1953-06-13');
+INSERT INTO pessoal VALUES ('Don Rickles','USA','1926-05-08');
+INSERT INTO pessoal VALUES ('Jim Varney','USA','1949-06-15');
+
+-------Scary Movie-------
+
+INSERT INTO pessoal VALUES ('Keenen Ivory Wayans','USA','1958-06-08');--Director--
+
+INSERT INTO pessoal VALUES ('Carmen Electra','USA','1972-04-20');
+INSERT INTO pessoal VALUES ('Dave Sheridan','USA','1969-03-10');
+INSERT INTO pessoal VALUES ('Anna Faris','USA','1976-11-29');
+INSERT INTO pessoal VALUES ('Jon Abrahams','USA','1977-10-29');
+
+-------Star Wars---------
+
+INSERT INTO pessoal VALUES ('George Lucas','USA','1944-05-14');--Director--
+
+INSERT INTO pessoal VALUES ('Mark Hamill','USA','1951-09-25');
+INSERT INTO pessoal VALUES ('Harrison Ford','USA','1942-07-13');
+INSERT INTO pessoal VALUES ('Carrie Fisher','USA','1956-10-21');
+INSERT INTO pessoal VALUES ('Peter Cushing','England','1913-05-26');
+
+-------SAW--------------
+
+INSERT INTO pessoal VALUES ('James Wan','Malaysia','1977-02-26');--Director--
+
+INSERT INTO pessoal VALUES ('Leigh Whannell','Australia','1977-01-17');
+INSERT INTO pessoal VALUES ('Cary Elwes','England','1962-10-26');
+INSERT INTO pessoal VALUES ('Danny Glover','USA','1946-07-22');
+INSERT INTO pessoal VALUES ('Ken Leung','USA','1970-01-21');
+
+--------Pulp Fiction------------
+
+INSERT INTO pessoal VALUES ('Quentin Tarantino','USA','1963-03-27');--Director--
+
+INSERT INTO pessoal VALUES ('Tim Roth','England','1961-05-14');
+INSERT INTO pessoal VALUES ('John Travolta','USA','1954-02-18');
+INSERT INTO pessoal VALUES ('Samuel L. Jackson','USA','1948-12-21');
+INSERT INTO pessoal VALUES ('Bruce Willis','West Germany','1955-03-19');
+
+--------Pocahontas---
+
+INSERT INTO pessoal VALUES ('Eric Goldberg','USA','1955-05-01');--Director--
+
+INSERT INTO pessoal VALUES ('Irene Bedard','USA','1967-07-22');
+INSERT INTO pessoal VALUES ('Judy Kuhn','USA','1958-05-20');
+INSERT INTO pessoal VALUES ('Mel Gibson','USA','1956-01-03');
+INSERT INTO pessoal VALUES ('David Ogden Stiers','USA','1942-10-31');
+
+---------Director---------
+
+------Ex Machina-----
+
+INSERT INTO director VALUES ('Alex Garland','http://www.imdb.com/title/tt0470752');
+
+------American Pie--------
+
+INSERT INTO director VALUES ('Paul Weitz','http://www.imdb.com/title/tt0163651');
+
+------Matrix----------
+
+INSERT INTO director VALUES ('Andy Wachowski','http://www.imdb.com/title/tt0133093');
+
+----------Ronaldo--------
+
+INSERT INTO director VALUES ('Anthony Wonke','http://www.imdb.com/title/tt5065822');
+
+-------Toy story---------------
+
+INSERT INTO director VALUES ('John Lasseter','http://www.imdb.com/title/tt0175142');
+
+-------Scary Movie--------
+
+INSERT INTO director VALUES ('Keenen Ivory Wayans','http://www.imdb.com/title/tt0175142');
+
+-------Star Wars---------
+
+INSERT INTO director VALUES ('George Lucas','http://www.imdb.com/title/tt0076759');
+
+-------SAW------
+
+INSERT INTO director VALUES ('James Wan','http://www.imdb.com/title/tt0387564');
+
+--------Pulp Fiction------------
+
+INSERT INTO director VALUES ('Quentin Tarantino','http://www.imdb.com/title/tt0110912');
+
+--------Pocahontas--------
+
+INSERT INTO director VALUES ('Eric Goldberg','http://www.imdb.com/title/tt0114148');
+
+-------Premios Director--------
+
+------Ex Machina-----
+
+INSERT INTO directorPremio VALUES ('Alex Garland','Amsterdam Fantastic Film Festival-Silver Scream Award','Ex Machina','http://www.imdb.com/title/tt0470752');
+
+INSERT INTO directorPremio VALUES ('Alex Garland','Boston Society of Film Critics Awards - Best New Filmmaker','Ex Machina','http://www.imdb.com/title/tt0470752');
+
+INSERT INTO directorPremio VALUES ('Alex Garland','British Independent Film Awards - Best Director','Ex Machina','http://www.imdb.com/title/tt0470752');
+
+------American Pie-------
+
+INSERT INTO directorPremio VALUES ('Paul Weitz','Christopher Awards - Film','About a Boy','http://www.imdb.com/title/tt0276751');
+
+------Matrix----------
+
+INSERT INTO directorPremio VALUES ('Andy Wachowski','Academy of Science Fiction, Fantasy & Horror Films - Best Director','The Matrix','http://www.imdb.com/title/tt0133093');
+
+INSERT INTO directorPremio VALUES ('Andy Wachowski','Fantasporto - International Fantasy Film Award','Bound','http://www.imdb.com/title/tt0115736');
+
+INSERT INTO directorPremio VALUES ('Andy Wachowski','Deauville Film Festival - Jury Special Prize','Bound','http://www.imdb.com/title/tt0115736');
+
+----------Ronaldo(sem premios)--------
+
+-------Toy story---------------
+
+INSERT INTO directorPremio VALUES ('John Lasseter','Academy Awards - Special Achievement Award','Toy Story','http://www.imdb.com/title/tt0175142');
+
+INSERT INTO directorPremio VALUES ('John Lasseter','Annie Awards - Best Individual Achievement: Directing','Toy Story','http://www.imdb.com/title/tt0175142');
+
+INSERT INTO directorPremio VALUES ('John Lasseter','Awards Circuit Community Awards - Best Original Screenplay','Toy Story','http://www.imdb.com/title/tt0175142');
+
+-------Scary Movie--------
+
+INSERT INTO directorPremio VALUES ('Keenen Ivory Wayans','Primetime Emmy Awards - Outstanding Variety, Music or Comedy Series','In Living Color','http://www.imdb.com/title/tt0098830');
+
+INSERT INTO directorPremio VALUES ('Keenen Ivory Wayans','PGA Awards - Most Promising Producer in Television','In Living Color','http://www.imdb.com/title/tt0098830');
+
+INSERT INTO directorPremio VALUES ('Keenen Ivory Wayans','PTV Land Awards - Groundbreaking Show','In Living Color','http://www.imdb.com/title/tt0098830');
+
+-------Star Wars---------
+
+INSERT INTO directorPremio VALUES ('George Lucas','Academy of Science Fiction, Fantasy & Horror Films - Best Director','Star Wars','http://www.imdb.com/title/tt0076759');
+
+INSERT INTO directorPremio VALUES ('George Lucas','Evening Standard British Film Awards - Best Film','Star Wars','http://www.imdb.com/title/tt0076759');
+
+INSERT INTO directorPremio VALUES ('George Lucas','Hochi Film Awards - ','Star Wars - Best Foreign Language Film','http://www.imdb.com/title/tt0076759');
+
+-------SAW--------------
+
+INSERT INTO directorPremio VALUES ('James Wan','Brussels International Festival of Fantasy Film','Saw','http://www.imdb.com/title/tt0387564');
+
+INSERT INTO directorPremio VALUES ('James Wan','Fangoria Chainsaw Awards -Best Wide-Release Film ','Saw','http://www.imdb.com/title/tt0387564');
+
+INSERT INTO directorPremio VALUES ('James Wan','Gérardmer Film Festival -Special Jury Prize ','Saw','http://www.imdb.com/title/tt0387564');
+
+--------Pulp Fiction------------
+
+INSERT INTO directorPremio VALUES ('Quentin Tarantino','Academy Awards - Best Writing, Original Screenplay','Django Unchained','http://www.imdb.com/title/tt1853728');
+
+INSERT INTO directorPremio VALUES ('Quentin Tarantino','Academy Awards - Best Writing, Screenplay Written Directly for the Screen','Pulp Fiction','http://www.imdb.com/title/tt0110912');
+
+INSERT INTO directorPremio VALUES ('Quentin Tarantino','Golden Globes - Best Screenplay - Motion Picture','Django Unchained','http://www.imdb.com/title/tt1853728');
+
+--------Pocahontas---
+
+INSERT INTO directorPremio VALUES ('Eric Goldberg','Annie Awards','The Princess and the Frog','http://www.imdb.com/title/tt0780521');
+
+INSERT INTO directorPremio VALUES ('Eric Goldberg','Annie Awards - Outstanding Individual Achievement for Character Animation','Fantasia 2000','http://www.imdb.com/title/tt0120910');
+
+INSERT INTO directorPremio VALUES ('Eric Goldberg','National Cartoonist Society -Feature Animation ','Rhapsody in Blue','http://www.imdb.com/title/tt0313529');
+
+-----------Ator--------------
+
+------Ex Machina-----
+
+INSERT INTO actor VALUES ('Domhnall Gleeson','http://www.imdb.com/title/tt0470752');
+INSERT INTO actor VALUES ('Corey Johnson','http://www.imdb.com/title/tt0470752');
+INSERT INTO actor VALUES ('Oscar Isaac','http://www.imdb.com/title/tt0470752');
+INSERT INTO actor VALUES ('Alicia Vikander','http://www.imdb.com/title/tt0470752');
+
+------American Pie--------
+
+INSERT INTO actor VALUES ('Jason Biggs','http://www.imdb.com/title/tt0163651');
+INSERT INTO actor VALUES ('Chris Klein','http://www.imdb.com/title/tt0163651');
+INSERT INTO actor VALUES ('Thomas Ian Nicholas','http://www.imdb.com/title/tt0163651');
+INSERT INTO actor VALUES ('Alyson Hannigan','http://www.imdb.com/title/tt0163651');
+
+------Matrix----------
+
+INSERT INTO actor VALUES ('Keanu Reeves','http://www.imdb.com/title/tt0133093');
+INSERT INTO actor VALUES ('Laurence Fishburne','http://www.imdb.com/title/tt0133093');
+INSERT INTO actor VALUES ('Carrie-Anne Moss','http://www.imdb.com/title/tt0133093');
+INSERT INTO actor VALUES ('Hugo Weaving','http://www.imdb.com/title/tt0133093');
+
+----------Ronaldo--------
+
+INSERT INTO actor VALUES ('Cristiano Ronaldo','http://www.imdb.com/title/tt5065822');
+INSERT INTO actor VALUES ('Dolores Aveiro','http://www.imdb.com/title/tt5065822');
+INSERT INTO actor VALUES ('Georgie Bingham','http://www.imdb.com/title/tt5065822');
+INSERT INTO actor VALUES ('Lionel Messi','http://www.imdb.com/title/tt5065822');
+
+-------Toy story---------------
+
+INSERT INTO actor VALUES ('Tom Hanks','http://www.imdb.com/title/tt0114709');
+INSERT INTO actor VALUES ('Tim Allen','http://www.imdb.com/title/tt0114709');
+INSERT INTO actor VALUES ('Don Rickles','http://www.imdb.com/title/tt0114709');
+INSERT INTO actor VALUES ('Jim Varney','http://www.imdb.com/title/tt0114709');
+
+-------Scary Movie--------
+
+INSERT INTO actor VALUES ('Carmen Electra','http://www.imdb.com/title/tt0387564');
+INSERT INTO actor VALUES ('Dave Sheridan','http://www.imdb.com/title/tt0387564');
+INSERT INTO actor VALUES ('Anna Faris','http://www.imdb.com/title/tt0387564');
+INSERT INTO actor VALUES ('Jon Abrahams','http://www.imdb.com/title/tt0387564');
+
+-------Star Wars---------
+
+INSERT INTO actor VALUES ('Mark Hamill','http://www.imdb.com/title/tt0076759');
+INSERT INTO actor VALUES ('Harrison Ford','http://www.imdb.com/title/tt0076759');
+INSERT INTO actor VALUES ('Carrie Fisher','http://www.imdb.com/title/tt0076759');
+INSERT INTO actor VALUES ('Peter Cushing','http://www.imdb.com/title/tt0076759');
+
+-------SAW--------------
+
+INSERT INTO actor VALUES ('Leigh Whannell','http://www.imdb.com/title/tt0387564');
+INSERT INTO actor VALUES ('Cary Elwes','http://www.imdb.com/title/tt0387564');
+INSERT INTO actor VALUES ('Danny Glover','http://www.imdb.com/title/tt0387564');
+INSERT INTO actor VALUES ('Ken Leung','http://www.imdb.com/title/tt0387564');
+
+--------Pulp Fiction------------
+
+INSERT INTO actor VALUES ('Tim Roth','http://www.imdb.com/title/tt0110912');
+INSERT INTO actor VALUES ('John Travolta','http://www.imdb.com/title/tt0110912');
+INSERT INTO actor VALUES ('Samuel L. Jackson','http://www.imdb.com/title/tt0110912');
+INSERT INTO actor VALUES ('Bruce Willis','http://www.imdb.com/title/tt0110912');
+
+--------Pocahontas-------
+
+INSERT INTO actor VALUES ('Irene Bedard','http://www.imdb.com/title/tt0114148');
+INSERT INTO actor VALUES ('Judy Kuhn','http://www.imdb.com/title/tt0114148');
+INSERT INTO actor VALUES ('Mel Gibson','http://www.imdb.com/title/tt0114148');
+INSERT INTO actor VALUES ('David Ogden','http://www.imdb.com/title/tt0114148');
+
+--Premios Actor--
+
+---------Domhnall Gleeson----------
+
+INSERT INTO actorPremio VALUES ('Domhnall Gleeson','Anna Karenina','http://www.imdb.com/title/tt1781769','Hamptons International Film Festival');
+
+INSERT INTO actorPremio VALUES ('Domhnall Gleeson','Frank','http://www.imdb.com/title/tt1605717','Irish Film and Television Awards - Best Actor in a Supporting Role - Film');
+
+INSERT INTO actorPremio VALUES ('Domhnall Gleeson','Anna Karenina','http://www.imdb.com/title/tt1781769','Irish Film and Television Awards - Best Supporting Actor Film');
+
+
+---------Corey Johnson-----------
+
+INSERT INTO actorPremio VALUES ('Corey Johnson','Warhol','http://www.imdb.com/title/tt3431184','Action on Film International Film Festival - Best Actor - Short');
+
+--------Oscar Isaac-----------
+
+INSERT INTO actorPremio VALUES ('Oscar Isaac','Show Me a Hero','http://www.imdb.com/title/tt2492296','Golden Globes - Best Performance by an Actor in a Limited Series or Motion Picture Made for Television');
+
+INSERT INTO actorPremio VALUES ('Oscar Isaac','Balibo','http://www.imdb.com/title/tt1111876','Australian Film Institute - Best Supporting Actor');
+
+INSERT INTO actorPremio VALUES ('Oscar Isaac','Inside Llewyn Davis','http://www.imdb.com/title/tt2042568','Chicago Film Critics Association Awards -Best Actor');
+
+----------Alicia Vikander-----------
+
+INSERT INTO actorPremio VALUES ('Alicia Vikander','Ex Machina','http://www.imdb.com/title/tt0470752','Alliance of Women Film Journalists - Best Breakthrough Performance');
+
+INSERT INTO actorPremio VALUES ('Alicia Vikander','Ex Machina','http://www.imdb.com/title/tt0470752','Austin Film Critics Association - Best Supporting Actress');
+
+INSERT INTO actorPremio VALUES ('Alicia Vikander','Ex Machina','http://www.imdb.com/title/tt0470752','Central Ohio Film Critics Association - Best Supporting Actress');
+
+----------Jason Biggs-----------
+
+INSERT INTO actorPremio VALUES ('Jason Biggs','Guy X','http://www.imdb.com/title/tt0408828','Taormina International Film Festival');
+
+INSERT INTO actorPremio VALUES ('Jason Biggs','American Pie','http://www.imdb.com/title/tt0163651','Young Hollywood Awards - Best Ensemble Cast');
+
+INSERT INTO actorPremio VALUES ('Jason Biggs','Orange Is the New Black','http://www.imdb.com/title/tt2372162','Screen Actors Guild Awards - Outstanding Performance by an Ensemble in a Comedy Series');
+
+-------Chris Klein--------
+
+INSERT INTO actorPremio VALUES ('Chris Klein','American Pie','http://www.imdb.com/title/tt0163651','Young Hollywood Awards - Best Ensemble Cast');
+
+-------Thomas Ian Nicholas---------
+
+INSERT INTO actorPremio VALUES ('Thomas Ian Nicholas','Please Give','http://www.imdb.com/title/tt0878835','Independent Spirit Awards');
+
+INSERT INTO actorPremio VALUES ('Thomas Ian Nicholas','American Pie','http://www.imdb.com/title/tt0163651','Young Hollywood Awards - Best Ensemble Cast');
+
+-------------Alyson Hannigan---------------
+
+INSERT INTO actorPremio VALUES ('Alyson Hannigan','American Pie','http://www.imdb.com/title/tt0163651','Young Hollywood Awards - Best Ensemble Cast');
+
+INSERT INTO actorPremio VALUES ('Alyson Hannigan','Buffy the Vampire Slayer','http://www.imdb.com/title/tt0118276','Academy of Science Fiction, Fantasy & Horror Films - Best Supporting Actress in a Television Series');
+
+INSERT INTO actorPremio VALUES ('Alyson Hannigan','Buffy the Vampire Slayer','http://www.imdb.com/title/tt0118276','SFX Awards - Best Science Fiction or Fantasy Actress');
+
+------------Keanu Reeves-------------
+
+INSERT INTO actorPremio VALUES ('Keanu Reeves','The Day the Earth Stood Still','http://www.imdb.com/title/tt0970416','Bambi Awards- Best Actor - International');
+
+INSERT INTO actorPremio VALUES ('Keanu Reeves','Matrix','http://www.imdb.com/title/tt0133093','Blockbuster Entertainment Awards- Favorite Actor - Action/Science Fiction');
+
+INSERT INTO actorPremio VALUES ('Keanu Reeves','Matrix','http://www.imdb.com/title/tt0133093','Csapnivalo Awards - Best Actor in a Leading Role');
+
+------------Laurence Fishburne-----------
+
+INSERT INTO actorPremio VALUES ('Laurence Fishburne','Miss Evers Boys','http://www.imdb.com/title/tt0119679','Primetime Emmy Awards - Outstanding Made for Television Movie');
+
+INSERT INTO actorPremio VALUES ('Laurence Fishburne','Hannibal','http://www.imdb.com/title/tt2243973','Academy of Science Fiction, Fantasy & Horror Films - Best Supporting Actor in a Television Series');
+
+INSERT INTO actorPremio VALUES ('Laurence Fishburne','Matrix','http://www.imdb.com/title/tt0133093','Blockbuster Entertainment Awards - Favorite Supporting Actor - Action/Science-Fiction');
+
+----------Carrie-Anne Moss----------
+
+INSERT INTO actorPremio VALUES ('Carrie-Anne Moss','Matrix','http://www.imdb.com/title/tt0133093','Csapnivalo Awards - Best Actress in a Leading Role');
+
+INSERT INTO actorPremio VALUES ('Carrie-Anne Moss','Matrix','http://www.imdb.com/title/tt0133093','Empire Awards - Best Debut');
+
+INSERT INTO actorPremio VALUES ('Carrie-Anne Moss','Memento','http://www.imdb.com/title/tt0209144','Independent Spirit Awards - Best Supporting Female');
+
+------------Hugo Weaving------------------
+
+INSERT INTO actorPremio VALUES ('Hugo Weaving','The Turning','http://www.imdb.com/title/tt2322641','Asian Film Critics Association Awards - Best Supporting Actor');
+
+INSERT INTO actorPremio VALUES ('Hugo Weaving','Mystery Road','http://www.imdb.com/title/tt2236054','Australian Film Critics Association Awards - Best Supporting Actor');
+
+INSERT INTO actorPremio VALUES ('Hugo Weaving','The Dressmaker','http://www.imdb.com/title/tt2910904','Australian Film Critics Association Awards - Best Supporting Actor');
+
+-----------Tom Hanks-----------
+
+INSERT INTO actorPremio VALUES ('Tom Hanks','Forrest Gump','http://www.imdb.com/title/tt0109830','Academy Awards - Best Actor in a Leading Role');
+
+INSERT INTO actorPremio VALUES ('Tom Hanks','Philadelphia','http://www.imdb.com/title/tt0107818','Academy Awards - Best Actor in a Leading Role');
+
+INSERT INTO actorPremio VALUES ('Tom Hanks','Philadelphia','http://www.imdb.com/title/tt0107818','Golden Globes - Best Performance by an Actor in a Motion Picture - Drama');
+
+------------Tim Allen-------------
+
+INSERT INTO actorPremio VALUES ('Tim Allen','Home Improvement','http://www.imdb.com/title/tt0101120','Golden Globes - Best Performance by an Actor in a Television Series - Comedy or Musical');
+
+INSERT INTO actorPremio VALUES ('Tim Allen','Galaxy Quest','http://www.imdb.com/title/tt0177789','Academy of Science Fiction, Fantasy & Horror Films - Best Actor');
+
+INSERT INTO actorPremio VALUES ('Tim Allen','Toy Story of Terror','http://www.imdb.com/title/tt2446040','Behind the Voice Actors Awards - Best Male Vocal Performance in a TV Special/Direct-to-DVD Title or Theatrical Short');
+
+-----------Don Rickles---------------
+
+INSERT INTO actorPremio VALUES ('Don Rickles','Mr. Warmth: The Don Rickles Project','http://www.imdb.com/title/tt0949815','Primetime Emmy Awards - Outstanding Individual Performance in a Variety or Music Program');
+
+-----------Jim Varney-----------
+
+INSERT INTO actorPremio VALUES ('Jim Varney','Hey, Vern, Its Ernest!','http://www.imdb.com/title/tt0193221','Daytime Emmy Awards - Outstanding Performer in a Childrens Series');
+
+---------Carmen Electra----------
+
+INSERT INTO actorPremio VALUES ('Carmen Electra','Starky & Hutch','http://www.imdb.com/title/tt0335438','MTV Movie Awards - Best Kiss');
+
+INSERT INTO actorPremio VALUES ('Carmen Electra','Date Movie','http://www.imdb.com/title/tt0466342','Razzie Awards - Worst Supporting Actress');
+
+-----------Jon Abrahams----------
+
+INSERT INTO actorPremio VALUES ('Jon Abrahams','What Are the Odds','http://www.imdb.com/title/tt0429239','New York International Independent Film & Video Festival - Best Actor');
+
+-----------Mark Hamill----------
+
+INSERT INTO actorPremio VALUES ('Mark Hamill','Batman: Arkham City','http://www.imdb.com/title/tt1568322','BAFTA Awards - Best Performer');
+
+INSERT INTO actorPremio VALUES ('Mark Hamill','Batman: Arkham Asylum','http://www.imdb.com/title/tt1282022','Academy of Interactive Arts & Sciences - Outstanding Achievement in Character Performance');
+
+INSERT INTO actorPremio VALUES ('Mark Hamill','Star Wars: Episode VI - Return of the Jedi','http://www.imdb.com/title/tt0086190','Academy of Science Fiction, Fantasy & Horror Films - Best Actor');
+
+--------Harrison Ford---------
+
+INSERT INTO actorPremio VALUES ('Harrison Ford','Air Force One','http://www.imdb.com/title/tt0118571','Bambi Awards - Film - International');
+
+INSERT INTO actorPremio VALUES ('Harrison Ford','Star Wars: Episode VI - Return of the Jedi','http://www.imdb.com/title/tt0161081','Blockbuster Entertainment Awards - Favorite Actor - Suspense');
+
+INSERT INTO actorPremio VALUES ('Harrison Ford','Six Days Seven Nights','http://www.imdb.com/title/tt0120828','Blockbuster Entertainment Awards - Favorite Actor - Comedy/Romance');
+
+----------Peter Cushing--------
+
+INSERT INTO actorPremio VALUES ('Peter Cushing','The Ghoul','http://www.imdb.com/title/tt0073042','Sitges - Catalonian International Film Festival - Best Actor');
+
+INSERT INTO actorPremio VALUES ('Peter Cushing','House of the Long Shadows','http://www.imdb.com/title/tt0085693','Sitges - Catalonian International Film Festival - Best Actor');
+
+-------------Leigh Whannell-------------
+
+INSERT INTO actorPremio VALUES ('Leigh Whannell','Saw','http://www.imdb.com/title/tt0387564','Fantasporto - Best Screenplay');
+
+INSERT INTO actorPremio VALUES ('Leigh Whannell','Insidious: Chapter 3','http://www.imdb.com/title/tt3195644','Palm Springs International Film Festival');
+
+----------Danny Glover---------
+
+INSERT INTO actorPremio VALUES ('Danny Glover','Americas Dream','http://www.imdb.com/title/tt0115528','CableACE Awards - Dramatic or Theatrical Special');
+
+INSERT INTO actorPremio VALUES ('Danny Glover','Mandela','http://www.imdb.com/title/tt0093490','CableACE Awards - Actor in a Movie or Miniseries');
+
+INSERT INTO actorPremio VALUES ('Danny Glover','Freedom Song','http://www.imdb.com/title/tt0213668','Christopher Awards - Television & Cable');
+
+------Ken Leung--------
+
+INSERT INTO actorPremio VALUES ('Ken Leung','Shanghai Kiss','http://www.imdb.com/title/tt0469184','San Francisco International Asian American Film Festival - Breakout Performance');
+
+--------Tim Roth----------
+
+INSERT INTO actorPremio VALUES ('Tim Roth','Rob Roy','http://www.imdb.com/title/tt0114287','BAFTA Awards - Best Performance by an Actor in a Supporting Role');
+
+INSERT INTO actorPremio VALUES ('Tim Roth','The War Zone','http://www.imdb.com/title/tt0141974','Berlin International Film Festival - Panorama');
+
+INSERT INTO actorPremio VALUES ('Tim Roth','The War Zone','http://www.imdb.com/title/tt0141974','Edinburgh International Film Festival - Best New British Feature');
+
+--------John Travolta--------
+
+INSERT INTO actorPremio VALUES ('John Travolta','Get Shorty','http://www.imdb.com/title/tt0113161','Golden Globes - Best Performance by an Actor in a Motion Picture - Comedy or Musical');
+
+INSERT INTO actorPremio VALUES ('John Travolta','Get Shorty','http://www.imdb.com/title/tt0113161','American Comedy Awards - Funniest Actor in a Motion Picture (Leading Role)');
+
+INSERT INTO actorPremio VALUES ('John Travolta','Phenomenon','http://www.imdb.com/title/tt0117333','Blockbuster Entertainment Awards - Favorite Actor - Drama');
+
+--------Samuel L. Jackson--------
+
+INSERT INTO actorPremio VALUES ('Samuel L. Jackson','Pulp Fiction','http://www.imdb.com/title/tt0110912','BAFTA Awards - Best Actor in a Supporting Role');
+
+INSERT INTO actorPremio VALUES ('Samuel L. Jackson','Eve Bayou','http://www.imdb.com/title/tt0119080','Academy of Science Fiction, Fantasy & Horror Films - Best Actor');
+
+INSERT INTO actorPremio VALUES ('Samuel L. Jackson','Jackie Brown','http://www.imdb.com/title/tt0119396','Berlin International Film Festival - Best Actor');
+
+--------Bruce Willis----------
+
+INSERT INTO actorPremio VALUES ('Bruce Willis','Moonlighting','http://www.imdb.com/title/tt0088571','Golden Globes - Best Performance by an Actor in a Television Series - Comedy or Musical');
+
+INSERT INTO actorPremio VALUES ('Bruce Willis','Friends','http://www.imdb.com/title/tt0108778','Primetime Emmy Awards - Outstanding Guest Actor in a Comedy Series');
+
+INSERT INTO actorPremio VALUES ('Bruce Willis','Moonlighting','http://www.imdb.com/title/tt0108778','Primetime Emmy Awards - Outstanding Lead Actor in a Drama Series');
+
+------------Irene Bedard----------------
+
+INSERT INTO actorPremio VALUES ('Irene Bedard','Greasewood Flat','http://www.imdb.com/title/tt0204352','American Indian LA Film and TV Awards - Best Lead Actress in a Feature Film');
+
+INSERT INTO actorPremio VALUES ('Irene Bedard','Ron and Laura Take Back America','http://www.imdb.com/title/tt2290623','Idyllwild International Festival of Cinema - Best Ensemble Cast - Feature/Featurette');
+
+INSERT INTO actorPremio VALUES ('Irene Bedard','Into the West','http://www.imdb.com/title/tt0409572','NAMIC Vision Awards - Best Dramatic Performance');
+
+-------------Mel Gibson-------------
+
+INSERT INTO actorPremio VALUES ('Mel Gibson','Braveheart','http://www.imdb.com/title/tt0112573','Academy Awards - Best Picture');
+
+INSERT INTO actorPremio VALUES ('Mel Gibson','Braveheart','http://www.imdb.com/title/tt0112573','Golden Globes - Best Director - Motion Picture');
+
+INSERT INTO actorPremio VALUES ('Mel Gibson','Gallipoli','http://www.imdb.com/title/tt0082432','Australian Film Institute - Best Actor in a Lead Role');
+
+-------------David Ogden-------------------
+
+INSERT INTO actorPremio VALUES ('David Ogden Stiers','M*A*S*H ','http://www.imdb.com/title/tt0068098','TV Land Awards - M*A*S*H');

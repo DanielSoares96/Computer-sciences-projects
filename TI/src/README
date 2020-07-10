@@ -1,0 +1,3 @@
+Para comprimir: $python3 Compressor.py imagem_a_comprimir.pbm ficheiro_comprimido
+
+Para descomprimir: $python3 Descompressor.py ficheiro_comprimido imagem_descomprimida.pbm
