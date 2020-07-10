@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>34222-3D</title>
+  <script type="text/javascript" src="./lib/x3dom-full.js">            
+  </script>
+  <link rel="stylesheet" type="text/css" href="./lib/x3dom.css" />
+  <script type='text/javascript' src='./lib/tween.min.js'></script>
+  <script type="text/javascript">
+//
+//  "Objeto simples" (não tem heranças nem polimorfismo, apenas atributos e métodos)
+//
+scene = function(element, tween) {
+    //
+    //  atributos
+    //
+    this.element = element;
+    this.tween = tween;
+    //
+    //  métodos
+    //
+    this.animate = function() {
+        this.element.setAttribute("translation", tween.x + " -2 " + tween.z);
+        //
+        //  "ciclo de animação"
+        //
+        //  redesenhar quando possível
+        requestAnimationFrame(this.animate);
+        //  atualizar os parâmetros
+        TWEEN.update();        
+    }
+    //
+    //  "truque"
+    //
+    return this;
+}
+    function main() {
+      var boatKeel = document.getElementById("boatKeel");
+      //
+      //  Parâmetros da animação
+      //      animar a posição
+      //
+      var pos = {x: 1, z: -1};
+      var target_pos= { x: 0, z: 0, s: 1};
+      var pos_t = new TWEEN.Tween(pos).to(target_pos, 5000);
+      pos_t.easing(TWEEN.Easing.Sinusoidal.InOut).yoyo( true ).repeat( Infinity );
+      pos_t.start();
+      //
+      //
+      //  Inicialização do modelo
+      //
+      var s = scene(bote,pos);
+      //
+      //  Animação
+      //
+      s.animate();
+    }
+  </script>
+</head>
+<body onload="main()">
+
+  <x3d width="512px" height="512px">
+    <scene>
+    <Background
+        backUrl = "./media/2.jpg">
+    </Background>
+
+
+    <switch whichCoice = "-1">
+        <Box id= "base"
+            size = "2 2.7 0.03" >
+        </Box>
+        
+        <sphere id="esfera"
+            radius = "0.44">
+        </sphere>
+    </switch>
+
+    <switch whichChoice="-1">
+        <Extrusion id = "curve"
+
+            crossSection="
+                2 0 
+                1.7 1 
+                1.4 1.3 
+                1.2 1.5 
+                1 1.7 
+                0 2 
+                -1 1.7
+                -1.2 1.5 
+                -1.4 1.3 
+                -1.7 1 
+                -1.8 0.8 
+                -1.9 0.5 
+                -1.9 -0.5 
+                -1.8 -0.8 
+                -1.7 -1 
+                -1.4 -1.3 
+                -1.2 -1.5 
+                -1 -1.7 
+                0 -2 
+                1 -1.7 
+                1.2 -1.5 
+                1.4 -1.3 
+                1.7 -1 
+                2 0
+                "
+
+            spine="
+                2.76 -7.8 0
+                2.7 -7 0 
+                1.95 0 0 
+                1.9 0.5 0 
+                1.7 1 0 
+                1.2 1.8 0  
+                1 2 0 
+                0 2.02 0 
+                -.5 2.02 0
+                 " 
+
+            scale ="
+                0.5 0.5 
+                0.5 0.5 
+                0.5 0.525 
+                0.5 0.55 
+                0.5 0.6 
+                0.5 0.6 
+                0.5 0.6
+                0.5 0.525
+                ">
+
+        </Extrusion>   
+    </Switch> 
+
+    <switch whichChoice="-1">
+        <Extrusion id = "costa"
+
+            crossSection="
+                3 -1.5
+                2.5 -1.6
+                2 -1.7
+                1.5 -1.8
+                1 -1.9
+                0.5 -1.95
+                0 -2
+
+                -0.5 -1.95
+                -1 -1.9 
+                -1.5 -1.8
+                -2 -1.7
+                -2.5 -1.6
+                -3 -1.5
+
+                -2.9 -1.3
+                -2.8 -1
+                -2.65 -0.75
+                -2.6 -0.5
+                -2.55 -0.25
+
+                -2.5 0
+                -2.55 0.25
+                -2.6 0.5
+                -2.8 0.75
+                -2.9 1
+                -3 1.1
+                -3.1 1.2
+
+                3.1 1.2
+                3 1.1
+                2.9 1
+                2.8 0.75
+                2.6 0.5
+                2.55 0.25
+                2.5 0
+
+                2.55 -0.25
+                2.6 -0.5
+                2.65 -0.75
+                2.8 -1
+                2.9 -1.3
+                3 -1.5
+                ">
+
+        </Extrusion>
+    </Switch> 
+
+    <switch whichChoice="-1">
+       <Extrusion id = "topo"
+
+                crossSection="
+                    -3 0.3
+                    3 0.3
+                    3 -0.3
+                    1.85 -0.3
+                    1 0
+                    -1 0
+                    -1.85 -0.3
+                    -3 -0.3
+                    -3 0.3
+                    "
+                spine="
+                    0 1 0
+                    0 0.5 0
+                    ">
+
+        </Extrusion>
+    </Switch>
+
+    <Switch whichChoice="-1">
+        <Extrusion id = "acessorio"
+
+                crossSection="
+                    2 0 
+                    1.95 0.25
+                    1.9 0.5 
+                    1.8 0.8 
+                    1.7 1 
+                    1.4 1.3 
+                    1.2 1.5 
+                    1 1.7 
+                    0 2 
+                    -1 1.7
+                    -1.2 1.5 
+                    -1.4 1.3 
+                    -1.7 1 
+                    -1.8 0.8 
+                    -1.9 0.5 
+                    -1.95 0.25 
+                    -2 0 
+                    -1.95 -0.25 
+                    -1.9 -0.5 
+                    -1.8 -0.8 
+                    -1.7 -1 
+                    -1.4 -1.3 
+                    -1.2 -1.5 
+                    -1 -1.7 
+                    0 -2 
+                    1 -1.7 
+                    1.2 -1.5 
+                    1.4 -1.3 
+                    1.7 -1 
+                    1.8 -0.8 
+                    1.9 -0.5 
+                    1.95 -0.25 
+                    2 0
+                    "
+
+                spine="
+                    -2 0 0 
+                    -1.6 -1.6 0 
+                    0 -2 0 
+                    1.6 -1.6 0 
+                    2 0 0
+                    "
+
+                scale="
+                    0.5 0.5
+                    0.5 0.5 
+                    0.5 0.5 
+                    0.5 0.5
+                    0.5 0.5
+                    ">
+
+        </Extrusion>
+    </Switch>
+
+    <Switch whichChoice="-1">
+        <Extrusion id = "pega"
+
+                crossSection="
+                    -2.5 -2.5
+                    -1.5 0
+                    1.5 0
+                    2.5 -2.5
+                    2 -2.5
+                    1 -0.25
+                    -1 -0.25
+                    -2 -2.5
+                    -2.5 -2.5
+                    "
+
+                spine="
+                    -1 0 0
+                    -0.2 0 0
+                    0 0 0
+                    "
+
+                orientation = "
+                    1 0 0 -0.4 
+                    0 1 0 0.0
+                    ">
+
+        </Extrusion>
+    </switch>
+
+<Switch whichChoice="-1">
+        <Extrusion id = "pega2"
+
+                crossSection="
+                    -2.5 -2.5
+                    -1.5 0
+                    1.5 0
+                    2.5 -2.5
+                    2 -2.5
+                    1 -0.25
+                    -1 -0.25
+                    -2 -2.5
+                    -2.5 -2.5
+                    "
+
+                spine="
+                    1 0 0
+                    0.2 0 0
+                    0 0 0
+                    "
+
+                orientation = "
+                    1 0 0 -0.4 
+                    0 1 0 0.0
+                    ">
+
+        </Extrusion>
+    </switch>
+
+
+
+    <switch whichChoice="-1">
+        <Extrusion id = "basePega"
+            
+            crossSection="
+                -1 -1.5
+                -2 1
+                2 1
+                1 -1.5
+                -1 -1.5
+                "
+
+            spine="
+                -0.05 0 0
+                -0.01 0 0
+                0 0 0
+                ">
+
+        </Extrusion>
+    </switch>
+
+    <switch whichChoice="-1">
+        <Extrusion id = "basePega2"
+            
+            crossSection="
+                
+                -2 -1
+                -1 1.5
+                1 1.5
+                2 -1
+                -2 -1
+                "
+
+            spine="
+                0.05 0 0
+                0.01 0 0
+                0 0 0
+                ">
+
+        </Extrusion>
+    </switch>
+
+    <switch whichChoice="-1">
+        <Extrusion id = "tri"
+            
+            crossSection="
+            -2 0
+            0 2
+            2 0
+            1.5 0
+            0 1.5
+            -1.5 0
+            -2 0
+            ">
+
+        </Extrusion>
+    </switch>        
+                    
+            <Transform id = "bote" rotation= "1 0 0 -1.2"> 
+                <Transform id = "boia" > 
+                    <Transform translation = "-.4 1.8 0.1" scale ="0.45 0.45 0.45" rotation = "0 1 0 -9.4">
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="chocolate"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="curve"></x3dgeometrynode>
+                        </Shape>
+                    </Transform> 
+
+                    <Transform translation = "0 1.8 0.1" scale ="0.45 0.45 0.45" > 
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="chocolate"></twosidedmaterial>
+                            </appearance>
+                            <x3dgeometrynode use="curve"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+
+                    <Transform translation = "-1.64 -1.7 0.13" scale ="1 1.3 1">
+                        <shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor = "chocolate"></twosidedmaterial>
+                            </appearance>
+                            <X3DGeometryNode use = "esfera"></X3DGeometryNode>
+                        </shape>
+                    </Transform>
+
+                    <Transform translation = "1.24 -1.7 0.10" scale ="1 1.3 1">
+                        <shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor = "chocolate"></twosidedmaterial>
+                            </appearance>
+                            <X3DGeometryNode use = "esfera"></X3DGeometryNode>
+                        </shape>
+                    </Transform>
+                </Transform>        
+
+
+                <Transform id = "chao">
+                    <Transform translation="-0.2 0.77 -0.23" scale ="1.1 1.28 1">
+                        <shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor = "#cccccc"></twosidedmaterial>
+                            </appearance>
+                        <X3DGeometryNode use = "base"></X3DGeometryNode>
+                        </shape>
+                    </Transform>
+                </Transform>
+
+
+                <Transform id = "mesa">
+                    <Transform translation ="-0.2 0 0.53" scale="0.85 0.25 2 ">
+                        <shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor = "black"></twosidedmaterial>
+                            </appearance>
+                        <X3DGeometryNode use = "base"></X3DGeometryNode>
+                        </shape>
+                    </Transform>
+
+                    <Transform translation ="-0.2 0 0.56" scale="0.85 0.25 0.15 ">
+                        <shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor = "chocolate"></twosidedmaterial>
+                            </appearance>
+                        <X3DGeometryNode use = "base"></X3DGeometryNode>
+                        </shape>
+                    </Transform>
+
+                    <Transform translation ="0.7 0 0.5" scale="0.13 0.13 1.5 " rotation="0 1 0 0.7">
+                        <shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor = "chocolate"></twosidedmaterial>
+                            </appearance>
+                            <X3DGeometryNode use = "base"></X3DGeometryNode>
+                        </shape>
+                    </Transform>
+
+                    <Transform translation ="-1.1 0 0.5" scale="0.13 0.13 1.5 " rotation="0 1 0 -0.7">
+                        <shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor = "chocolate"></twosidedmaterial>
+                            </appearance>
+                            <X3DGeometryNode use = "base"></X3DGeometryNode>
+                        </shape>
+                    </Transform>
+                </Transform> 
+
+
+                <Transform id = "acento" > 
+                    <Transform translation = "-.2 -1 0.15" scale ="0.375 0.04 0.27">
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="#cccccc"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="costa"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+                
+                    <Transform translation = "-0.2 -1.05 0.575" scale ="0.375 0.1 0.27" rotation="1 0 0 -1.5">
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="#cccccc"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="topo"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+
+                    <Transform translation = "-0.2 -1.05 0.1" scale ="0.4 0.24 3" rotation="1 0 0 -1.5">
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="#cccccc"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="base"></x3dgeometrynode>
+                        </Shape>
+                    </Transform> 
+                </Transform>  
+
+                
+                <Transform id = "partes" >
+                    <Transform translation = "-0.8 -1 0.2" scale ="0.03 0.03 0.03" rotation="0 1 0 1.6">
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="black"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="acessorio"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+
+                    <Transform translation = "0.45 1.78 0.22" scale ="0.17 0.17 0.05" rotation="0 1 0 1.6">
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="gray"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="esfera"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+
+                    <Transform translation = "-0.2 2.26 0.2" scale ="0.025 0.03 0.015" rotation="1 0 0 1.6">
+                        <Shape>
+                            <appearance>
+                                <ImageTexture  url="./media/1.jpg"><ImageTexture/>         
+                            </appearance>
+                            <x3dgeometrynode use="acessorio"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+
+                    <Transform translation = "-1.9 -0.95 0.58" scale ="0.08 0.08 0.05" rotation="0 1 0 -1" >
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="black"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="pega"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+                    
+                    <Transform translation = "-1.85 -0.95 0.45" scale ="0.85 0.18 0.085" rotation="0 1 0 0.95" >
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="sgiverydarkgrey" emissiveColor="0.007 0.007 0.007"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="basePega"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+
+                    <Transform translation = "0.55 0.71 0.18" scale ="0.04 0.075 0.04" rotation="0 1 0 -1.6">
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="black"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="tri"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+
+                    <Transform translation = "0.57 0.75 0.18" scale ="0.02 0.08 8" rotation="0 0 1 0.1">
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="sgiverydarkgrey" emissiveColor="0.008 0.008 0.008"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="base"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+                    <Transform translation = "1.53 -0.95 0.52" scale ="0.08 0.08 0.05" rotation="0 1 0 1" >
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="black"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="pega2"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+                    
+                    <Transform translation = "1.5 -0.95 0.42" scale ="0.9 0.18 0.087" rotation="0 1 0 2.4" >
+                        <Shape>
+                            <appearance>
+                                <twosidedmaterial diffuseColor="sgiverydarkgrey" emissiveColor="0.007 0.007 0.007"></twosidedmaterial>         
+                            </appearance>
+                            <x3dgeometrynode use="basePega2"></x3dgeometrynode>
+                        </Shape>
+                    </Transform>
+                </Transform>
+            </Transform>
+        </scene>
+    </x3d>
+</html>       
